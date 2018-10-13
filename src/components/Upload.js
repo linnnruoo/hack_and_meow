@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TextField, Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import UploadPhoto from './UploadPhoto';
 
 const style = () => ({
   root: {
@@ -36,12 +37,10 @@ class Upload extends Component {
 
     return (
       <Grid className={classes.root} container>
-        <Grid className={classes.grid} xs={12}>
-          <Button>
-            <input type="file" />
-          </Button>
+        <Grid className={classes.grid} xs={12} item>
+          <UploadPhoto></UploadPhoto>
         </Grid>
-        <Grid className={classes.grid} xs={12}>
+        <Grid className={classes.grid} xs={12} item>
           <TextField
             className={classes.textField}
             label="Name"
@@ -52,7 +51,7 @@ class Upload extends Component {
             onChange={this.onChange}
           />
         </Grid>
-        <Grid className={classes.grid} xs={12}>
+        <Grid className={classes.grid} xs={12} item>
           <TextField
             label="Caption"
             placeholder="Please enter the captioneoww"
