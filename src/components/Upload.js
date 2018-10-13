@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import * as _ from 'lodash';
 import {retrieveTags , checkCat} from '../services/VisionService';
 import fire from '../fire';
+import uuid from 'uuid/v1';
 
 const style = () => ({
   root: {
@@ -35,10 +36,10 @@ class Upload extends Component {
   }
 
   onClick = (e) => {
-    if (!this.isCat && (this.state.name == '' || this.state.caption == '' || this.state.imgFile == '')) {
+    if (!this.isCat && (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '')) {
       console.log("sowwy pwease weupwoad your photo uwu");
     } else {
-      var str = new Date().toLocaleTimeString().toString();
+      var str = uuid();
       fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
         console.log('Fiwe upwoaded');
       })
