@@ -7,6 +7,7 @@ import imageLoader from '../image/placeholder4.png';
 
 const style = theme => ({
   cardGroup: {
+    margin: '0px auto',
     marginTop: '65px',
     marginBottom: '10px'
   },
