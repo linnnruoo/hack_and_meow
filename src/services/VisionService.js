@@ -13,7 +13,7 @@ var headers = {
 const retrieveTags = async(file) => {
     let endPoint = 'tag';
     const apiUrl = `${baseURI}${endPoint}`;
-    console.log(apiUrl);
+    //console.log(apiUrl);
     const formData = new FormData();
     formData.append('data', file[0]);
 
@@ -26,9 +26,18 @@ const retrieveTags = async(file) => {
     }
 };
 
-const isCat = async(file) => {
+const checkCat = async(file) => {
     const tags = await retrieveTags(file);
-    return _.some(tags, (tag) => tag.name === "cat");
+    var isCat = false;
+
+    for (var i=0; i<tags.length; i++) {
+
+        if (tags[i]['name'] === "cat") {
+            isCat = true;
+        }
+    }
+
+    return isCat;
 };
 
-export { retrieveTags, isCat };
+export { retrieveTags, checkCat };

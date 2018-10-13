@@ -5,6 +5,7 @@ import Nav from './Nav';
 import { Card, Divider, CardMedia, CardContent, Typography } from '@material-ui/core';
 import Skeleton from 'react-loading-skeleton';
 import imageLoader from '../image/placeholder4.png';
+import fire from '../fire';
 
 const style = theme => ({
   cardGroup: {
@@ -31,12 +32,26 @@ const style = theme => ({
 class Home extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      posts : null
+    }
+  }
 
+  componentDidMount() {
+    var data = [];
+    const ref = fire.database().ref('/posts');
+    ref.once('value', function(snapshot) {
+      snapshot.forEach(function(child) {
+        data.push(child.val());
+        console.log(child.val());
+      })
+    })
+    console.log(data);
   }
 
   render() {
     const { imgList, classes } = this.props;
-
     return (
       <div>
         <Nav />
@@ -45,7 +60,7 @@ class Home extends Component {
           direction="row"
           justify="center"
           alignItems="flex-start"
-          spacing={6}
+          spacing={8}
           container
         >
           {[1,2,3,4,5].map((card, index) => {
@@ -57,7 +72,7 @@ class Home extends Component {
                     image={card.imageUrl || imageLoader}
                   />
                   <CardContent>
-                    <Typography component="p" className={classes.typography}>
+                    <Typography component="h6" className={classes.typography}>
                       {card.caption || <Skeleton count={4} />}
                     </Typography>
                   </CardContent>
