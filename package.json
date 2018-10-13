@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.2.0",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-loading-skeleton": "^0.6.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4"
   },
