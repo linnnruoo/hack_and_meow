@@ -35,7 +35,7 @@ class Upload extends Component {
       caption: '',
       imgFile: '',
       isCat: false,
-      alert: false
+      alertlevel: 0
     }
     this.onFileChange = this.onFileChange.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -47,8 +47,11 @@ class Upload extends Component {
   }
 
   onClick = (e) => {
-    if (!this.isCat || (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '')) {
-      this.setState({alert: true});
+    if (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '') {
+      this.setState({alertlevel : 1})
+    }
+    else if (!this.isCat) {
+      this.setState({alertlevel: 2});
     } else {
       var str = uuid();
       fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
@@ -63,10 +66,14 @@ class Upload extends Component {
   }
 
   handleClose(e) {
-    this.setState({alert : false});
+    this.setState({alertlevel : 0});
   }
 
   render() {
+    const error_messages = ["", 
+        "Sowwy pwease enter youw infowmation uwu", 
+        "Sowwy pwease upwoad a cat photo uwu"]
+
     const { classes } = this.props;
 
     return (
@@ -128,7 +135,7 @@ class Upload extends Component {
           </Grid>
         </Grid>
         <Dialog
-          open={this.state.alert}
+          open={(this.state.alertlevel>0) ? true : false}
           TransitionComponent={Transition}
           keepMounted
           onClose={this.handleClose}
@@ -137,7 +144,7 @@ class Upload extends Component {
         >
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Sowwy pwease upwoad a cat photo uwu
+              {error_messages[this.state.alertlevel]}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
