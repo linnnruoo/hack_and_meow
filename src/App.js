@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+
+import TestInput from './TestInput';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Upload from './components/Upload';
@@ -17,6 +20,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Router>
           <div className="App">
+            <TestInput />
             <div className="children">
               <Route exact path="/" component={ Home } />
               <Route exact path="/upload" component={ Upload } />
