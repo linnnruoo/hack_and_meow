@@ -9,7 +9,19 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 const theme = createMuiTheme({
   typography: {
     fontFamily: '"Mali"'
-  }
+  },
+  palette: {
+    primary: {
+      light: '#66101F',
+      main: '#66101F',
+      dark: '#66101F',
+    },
+    secondary: {
+      light: '#66101F',
+      main: '#66101F',
+      dark: '#66101F',
+    },
+  },
 })
 
 class App extends Component {

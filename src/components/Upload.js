@@ -23,6 +23,10 @@ const style = () => ({
     marginBottom: '10px',
   },
   textField: {
+    width: 300
+  },
+  uploadBtn: {
+    background: '#855A5C'
   }
 })
 
@@ -50,7 +54,7 @@ class Upload extends Component {
     if (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '') {
       this.setState({alertlevel : 1})
     }
-    else if (!this.isCat) {
+    else if (!this.state.isCat) {
       this.setState({alertlevel: 2});
     } else {
       var str = uuid();
@@ -62,6 +66,7 @@ class Upload extends Component {
         caption: this.state.caption,
         image: str
       });
+      window.location.href = "/";
     }
   }
 
@@ -70,9 +75,11 @@ class Upload extends Component {
   }
 
   render() {
-    const error_messages = ["", 
-        "Sowwy pwease enter youw infowmation uwu", 
-        "Sowwy pwease upwoad a cat photo uwu"]
+    const error_messages = [
+      "Sowething went wrong with MeowMeow uwu", 
+      "Sowwy pwease enter youw infowmation uwu", 
+      "Sowwy pwease upwoad a cat photo uwu"
+    ]
 
     const { classes } = this.props;
 
@@ -81,26 +88,25 @@ class Upload extends Component {
         <Grid className={classes.root} container>
           <Grid className={classes.grid} xs={12} item>
             <input
-            id="my-file-selector"
-            type="file"
-            name="file"
-            onChange={ this.onFileChange }
-            style={{display: 'none'}}
-            accept="image/*"
+              id="my-file-selector"
+              type="file"
+              name="file"
+              onChange={ this.onFileChange }
+              style={{display: 'none'}}
+              accept="image/*"
             />
             <label htmlFor="my-file-selector">
-              <Button component="span">
-                <Typography variant="h6">Upload Cat</Typography>
+              <Button component="span" color="primary" fullWidth>
+                <Typography variant="h6">Upload Cat Here</Typography>
               </Button>
             </label>
-
-            { this.state.isCat ? (<h1> IS CAT </h1>) : (<h1> IS NOT CAT </h1>)}
+            {/* this.state.isCat ? (<h1> IS CAT </h1>) : (<h1> IS NOT CAT </h1>) */}
           </Grid>
           <Grid className={classes.grid} xs={12} item>
             <TextField
               className={classes.textField}
               label="Name"
-              placeholder="Please enter your nameow"
+              placeholder="Pwease enter youw nameow"
               name="name"
               variant="outlined"
               value={this.state.name}
@@ -109,8 +115,9 @@ class Upload extends Component {
           </Grid>
           <Grid className={classes.grid} xs={12} item>
             <TextField
+              className={classes.textField}
               label="Caption"
-              placeholder="Please enter the captioneoww"
+              placeholder="Pwease enter the captioneoww"
               name="caption"
               variant="outlined"
               multiline
@@ -123,13 +130,15 @@ class Upload extends Component {
             <Button
               label="Upload"
               name="Upload"
-              onClick={this.onClick} 
+              onClick={this.onClick}
+              color="primary"
             ><Typography variant='h6'>Submit</Typography>
             </Button>
             <Button
               label="Return"
               name="Return"
               href="/"
+              color="primary"
             ><Typography variant='h6'>Return</Typography>
             </Button>
           </Grid>
@@ -143,7 +152,7 @@ class Upload extends Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
+            <DialogContentText variant="subtitle1" id="alert-dialog-slide-description">
               {error_messages[this.state.alertlevel]}
             </DialogContentText>
           </DialogContent>
@@ -167,6 +176,7 @@ class Upload extends Component {
       _(tags).forEach( (tag) => console.log(tag.name) );
     });
     checkCat(files).then((res) => {
+      //console.log(res);
       this.setState(() => ({
         imgFile : files[0],
         isCat : res
