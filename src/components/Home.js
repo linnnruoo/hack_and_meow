@@ -40,9 +40,12 @@ class Home extends Component {
 
   componentDidMount() {
     var data = [];
-    const ref = fire.database().ref('/posts');
-    ref.once('value', function(snapshot) {
+    const storeRef = fire.storage().ref().child('images/');
+    const dbRef = fire.database().ref('/posts');
+    dbRef.once('value', function(snapshot) {
       snapshot.forEach(function(child) {
+        console.log(storeRef.child(child.val().image));
+        child.val().image = storeRef.child(child.val().image);
         data.push(child.val());
         console.log(child.val());
       })
