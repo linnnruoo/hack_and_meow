@@ -45,7 +45,7 @@ class Home extends Component {
           direction="row"
           justify="center"
           alignItems="flex-start"
-          spacing={6}
+          spacing={8}
           container
         >
           {[1,2,3,4,5].map((card, index) => {
@@ -57,7 +57,7 @@ class Home extends Component {
                     image={card.imageUrl || imageLoader}
                   />
                   <CardContent>
-                    <Typography component="p" className={classes.typography}>
+                    <Typography component="h6" className={classes.typography}>
                       {card.caption || <Skeleton count={4} />}
                     </Typography>
                   </CardContent>
