@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import Slide from '@material-ui/core/Slide';
 import { TextField, Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import * as _ from 'lodash';
 import {retrieveTags , checkCat} from '../services/VisionService';
 import fire from '../fire';
 import uuid from 'uuid/v1';
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 const style = () => ({
   root: {
@@ -25,10 +34,12 @@ class Upload extends Component {
       name: '',
       caption: '',
       imgFile: '',
-      isCat: false
+      isCat: false,
+      alert: false
     }
     this.onFileChange = this.onFileChange.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   onChange = (e) => {
@@ -36,8 +47,8 @@ class Upload extends Component {
   }
 
   onClick = (e) => {
-    if (!this.isCat && (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '')) {
-      console.log("sowwy pwease weupwoad your photo uwu");
+    if (!this.isCat || (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '')) {
+      this.setState({alert: true});
     } else {
       var str = uuid();
       fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
@@ -49,6 +60,10 @@ class Upload extends Component {
         image: str
       });
     }
+  }
+
+  handleClose(e) {
+    this.setState({alert : false});
   }
 
   render() {
@@ -112,6 +127,25 @@ class Upload extends Component {
             </Button>
           </Grid>
         </Grid>
+        <Dialog
+          open={this.state.alert}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Sowwy pwease upwoad a cat photo uwu
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Okay uwu
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
