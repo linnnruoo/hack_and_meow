@@ -39,7 +39,7 @@ class Upload extends Component {
       console.log("sowwy pwease weupwoad your photo uwu");
     } else {
       var str = new Date().toLocaleTimeString().toString();
-      fire.storage().ref().child(str).put(this.state.imgFile).then(function(snapshot) {
+      fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
         console.log('Fiwe upwoaded');
       })
       fire.database().ref('posts/').push({
