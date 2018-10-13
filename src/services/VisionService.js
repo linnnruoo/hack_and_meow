@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as _ from 'lodash';
+//import * as _ from 'lodash';
 
 const subscriptionKey = process.env.REACT_APP_FACE_API_KEY;
 

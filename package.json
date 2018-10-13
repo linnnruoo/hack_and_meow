@@ -12,7 +12,8 @@
     "react-dom": "^16.5.2",
     "react-loading-skeleton": "^0.6.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.4"
+    "react-scripts": "2.0.4",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
