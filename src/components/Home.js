@@ -5,6 +5,7 @@ import Nav from './Nav';
 import { Card, Divider, CardMedia, CardContent, Typography } from '@material-ui/core';
 import Skeleton from 'react-loading-skeleton';
 import imageLoader from '../image/placeholder4.png';
+import fire from '../fire';
 
 const style = theme => ({
   cardGroup: {
@@ -31,12 +32,26 @@ const style = theme => ({
 class Home extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      posts : null
+    }
+  }
 
+  componentDidMount() {
+    var data = [];
+    const ref = fire.database().ref('/posts');
+    ref.once('value', function(snapshot) {
+      snapshot.forEach(function(child) {
+        data.push(child.val());
+        console.log(child.val());
+      })
+    })
+    console.log(data);
   }
 
   render() {
     const { imgList, classes } = this.props;
-
     return (
       <div>
         <Nav />
