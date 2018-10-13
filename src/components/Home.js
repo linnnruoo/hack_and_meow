@@ -34,7 +34,7 @@ class Home extends Component {
     super(props);
     
     this.state = {
-      posts : null
+      posts : []
     }
   }
 
@@ -47,14 +47,18 @@ class Home extends Component {
         console.log(storeRef.child(child.val().image));
         child.val().image = storeRef.child(child.val().image);
         data.push(child.val());
-        console.log(child.val());
       })
     })
     console.log(data);
+    //console.log("test", this.state.posts);
   }
 
   render() {
-    const { imgList, classes } = this.props;
+    const { classes } = this.props;
+
+    if (this.state.posts.length > 0) {
+      console.log("settled");
+    }
     return (
       <div>
         <Nav />
@@ -75,13 +79,13 @@ class Home extends Component {
                     image={card.imageUrl || imageLoader}
                   />
                   <CardContent>
-                    <Typography component="h6" className={classes.typography}>
+                    <Typography variant="h6" className={classes.typography}>
                       {card.caption || <Skeleton count={4} />}
                     </Typography>
                   </CardContent>
                   <Divider className={classes.divider} light />
                   <CardContent>
-                    <Typography className={classes.typography}>Posted by {card.name || <Skeleton width={200} />}</Typography>
+                    <Typography variant="h6" className={classes.typography}>Posted by {card.name || <Skeleton width={200} />}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
