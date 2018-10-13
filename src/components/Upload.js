@@ -104,6 +104,12 @@ class Upload extends Component {
               onClick={this.onClick} 
             ><Typography variant='h6'>Submit</Typography>
             </Button>
+            <Button
+              label="Return"
+              name="Return"
+              href="/"
+            ><Typography variant='h6'>Return</Typography>
+            </Button>
           </Grid>
         </Grid>
       </div>
