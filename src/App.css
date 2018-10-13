@@ -1,5 +1,10 @@
+body {
+  font-family: 'Mali', cursive;
+}
+
 .App {
   text-align: center;
+  font-family: 'Mali', cursive;
 }
 
 .App-logo {
