@@ -25,7 +25,7 @@ class Home extends Component {
       });
       
       Promise.all(childPromises).then((response) => {
-        console.log(response);
+        //console.log(response);
         for (var i = 0; i< response.length; i++){
           temp[i].image = response[i];
         }
@@ -34,9 +34,6 @@ class Home extends Component {
           posts: temp,
         }));
       });
-
-      //console.log(temp);
-
     });
   }
 
