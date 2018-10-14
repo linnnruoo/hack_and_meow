@@ -79,23 +79,27 @@ class Upload extends Component {
         this.setState({alertlevel: 2, pass : false});
       } else {
         var str = uuid();
-        fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
-          console.log('Fiwe upwoaded');
-        })
+
         var newCaption = nyan(this.state.caption);
         var newName = nyan(this.state.name);
         var appendedCaption = (Math.random() > 0.4) ? 
         (" " + owos[Math.round(Math.random()*owos.length)]) : "";
         console.log(newName);
         console.log(newCaption);
-        fire.database().ref('posts/').push({
-          name: newName,
-          caption: `${newCaption} ${appendedCaption}`,
-          image: str
-        }, () => {
-          this.setState({alertlevel : 0, pass : false});
-          window.location.href = "/";
-        });
+
+        fire.storage().ref().child('images/' + str).put(this.state.imgFile).then((snapshot) =>{
+          console.log('Fiwe upwoaded');
+            
+          fire.database().ref('posts/').push({
+            name: newName,
+            caption: `${newCaption} ${appendedCaption}`,
+            image: str
+          }, () => {
+            this.setState({alertlevel : 0, pass : false});
+            window.location.href = "/";
+          });
+
+        })
       }
     }
 
