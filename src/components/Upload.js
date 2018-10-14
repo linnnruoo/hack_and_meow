@@ -70,6 +70,7 @@ class Upload extends Component {
   }
 
   onClick = (e) => {
+    var owos = ["owo", "uwu", "OwO", "UwU", "^w^"]
     if (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '') {
       this.setState({alertlevel : 1, pass : false});
     }
@@ -83,11 +84,13 @@ class Upload extends Component {
         })
         var newCaption = nyan(this.state.caption);
         var newName = nyan(this.state.name);
+        var appendedCaption = (Math.random() > 0.4) ? 
+        (" " + owos[Math.round(Math.random()*owos.length)]) : "";
         console.log(newName);
         console.log(newCaption);
         fire.database().ref('posts/').push({
           name: newName,
-          caption: newCaption,
+          caption: `${newCaption} ${appendedCaption}`,
           image: str
         }, () => {
           this.setState({alertlevel : 0, pass : false});
