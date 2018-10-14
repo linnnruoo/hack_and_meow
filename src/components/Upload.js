@@ -18,18 +18,20 @@ function Transition(props) {
 function nyan(str) {
   var arr = str.split('');
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i] == 'l' || arr[i] == 'r') {
+    if (arr[i] === 'l' || arr[i] === 'r') {
       console.log("hello");
       arr[i] = 'w';
     }
   }
+
   for (var i = 0; i < arr.length - 1; i++) {
-    if (arr[i] == 'n' && arr[i+1] == 'a') {
+    if (arr[i] === 'n' && arr[i+1] === 'a') {
       arr = arr.slice(0, i+1)
                 .concat(['y'])
                 .concat(arr.slice(i+1, arr.length));
     }
   }
+  
   return arr.join("");
 }
 
