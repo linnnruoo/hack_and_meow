@@ -17,13 +17,17 @@ class Home extends Component {
     var temp = [];
     const storeRef = fire.storage().ref().child('images/');
     const dbRef = fire.database().ref('/posts');
-    const childPromises = [];
+    var childPromises = [];
     dbRef.once('value').then((snapshot) => {
       snapshot.forEach((child) => {
         childPromises.push(storeRef.child(child.val().image).getDownloadURL());
-          temp.push(child.val());
+        temp.push(child.val());
       });
       
+      // sort by time
+      childPromises = childPromises.reverse();
+      temp = temp.reverse();
+
       Promise.all(childPromises).then((response) => {
         //console.log(response);
         for (var i = 0; i< response.length; i++){
