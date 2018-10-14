@@ -57,7 +57,8 @@ class Upload extends Component {
       caption: '',
       imgFile: '',
       isCat: false,
-      alertlevel: 0
+      alertlevel: 0,
+      pass: false
     }
     this.onFileChange = this.onFileChange.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -70,26 +71,31 @@ class Upload extends Component {
 
   onClick = (e) => {
     if (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '') {
-      this.setState({alertlevel : 1})
+      this.setState({alertlevel : 1, pass : false});
     }
-    else if (!this.state.isCat) {
-      this.setState({alertlevel: 2});
-    } else {
-      var str = uuid();
-      fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
-        console.log('Fiwe upwoaded');
-      })
-      var newCaption = nyan(this.state.caption);
-      var newName = nyan(this.state.name);
-      console.log(newName);
-      console.log(newCaption);
-      fire.database().ref('posts/').push({
-        name: newName,
-        caption: newCaption,
-        image: str
-      });
-      //window.location.href = "/";
+    else if(this.state.pass) {
+      if (!this.state.isCat) {
+        this.setState({alertlevel: 2, pass : false});
+      } else {
+        var str = uuid();
+        fire.storage().ref().child('images/' + str).put(this.state.imgFile).then(function(snapshot) {
+          console.log('Fiwe upwoaded');
+        })
+        var newCaption = nyan(this.state.caption);
+        var newName = nyan(this.state.name);
+        console.log(newName);
+        console.log(newCaption);
+        fire.database().ref('posts/').push({
+          name: newName,
+          caption: newCaption,
+          image: str
+        }, () => {
+          this.setState({alertlevel : 0, pass : false});
+          window.location.href = "/";
+        });
+      }
     }
+
   }
 
   handleClose(e) {
@@ -201,7 +207,8 @@ class Upload extends Component {
       //console.log(res);
       this.setState(() => ({
         imgFile : files[0],
-        isCat : res
+        isCat : res,
+        pass : true
       }));
     })
   }
