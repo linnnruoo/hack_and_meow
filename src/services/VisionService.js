@@ -1,9 +1,9 @@
 import axios from 'axios';
 //import * as _ from 'lodash';
 
-const subscriptionKey = process.env.REACT_APP_FACE_API_KEY;
+const subscriptionKey = process.env.REACT_APP_CV_API_KEY;
 
-const baseURI = 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/';
+const baseURI = process.env.REACT_APP_CV_API_ENDPOINT;
 
 var headers = {
     'Content-Type': 'application/octet-stream',
