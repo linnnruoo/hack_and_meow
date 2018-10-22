@@ -24,11 +24,11 @@ function nyan(str) {
     }
   }
 
-  for (var i = 0; i < arr.length - 1; i++) {
-    if (arr[i] === 'n' && arr[i+1] === 'a') {
-      arr = arr.slice(0, i+1)
+  for (var j = 0; j < arr.length - 1; j++) {
+    if (arr[j] === 'n' && arr[j+1] === 'a') {
+      arr = arr.slice(0, j+1)
                 .concat(['y'])
-                .concat(arr.slice(i+1, arr.length));
+                .concat(arr.slice(j+1, arr.length));
     }
   }
   
@@ -85,7 +85,7 @@ class Upload extends Component {
         var newCaption = nyan(this.state.caption);
         var newName = nyan(this.state.name);
         var appendedCaption = (Math.random() > 0.4) ? 
-        (" " + owos[Math.round(Math.random()*owos.length)]) : "";
+        (" " + owos[Math.round( Math.random() * (owos.length - 1))]) : "";
         console.log(newName);
         console.log(newCaption);
 
