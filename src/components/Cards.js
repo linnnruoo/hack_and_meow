@@ -8,12 +8,13 @@ import imageLoader from '../image/placeholder4.png';
 const style = theme => ({
   cardGroup: {
     marginTop: '65px',
-    marginBottom: '10px'
+    marginBottom: '10px',
   },
   card: {
     height: 'auto',
     width: '100%',
     maxWidth: '15.6em',
+    margin: '5px 0px'
   },
   media: {
     height: 250,
@@ -28,15 +29,8 @@ const style = theme => ({
 });
 
 class Cards extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      imgReady: false
-    }
-  }
   render() {
-    const { classes } = this.props;
+    const { classes, posts } = this.props;
 
     return (
       <Grid
@@ -44,10 +38,9 @@ class Cards extends Component {
         direction="row"
         justify="flex-start"
         alignItems="flex-start"
-        spacing={8}
         container
       >
-        {(this.props.posts).map((card, index) => {
+        {(posts).map((card, index) => {
           return (
             <Grid key={index} xs={12} sm={4} md={3} lg={2} item container justify="center">
               <Card className={classes.card}>

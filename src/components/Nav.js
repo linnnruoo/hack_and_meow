@@ -3,8 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Button, SvgIcon, Toolbar, Typography } from '@material-ui/core';
 
 const style = () => ({
-  button: {
-  },
   appBar: {
     background: 'white',
   },

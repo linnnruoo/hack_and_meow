@@ -14,6 +14,7 @@ const style = theme => ({
     height: 'auto',
     width: '100%',
     maxWidth: '15.6em',
+    margin: '10px 0px'
   },
   media: {
     height: 250,
@@ -38,7 +39,6 @@ class CardLoader extends Component {
         direction="row"
         justify="flex-start"
         alignItems="flex-start"
-        spacing={8}
         container
       >
         {[1,2,3,4,5,6].map((card, index) => {

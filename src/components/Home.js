@@ -7,7 +7,7 @@ import CardLoader from './CardLoader';
 class Home extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       posts : []
     }
@@ -23,7 +23,7 @@ class Home extends Component {
         childPromises.push(storeRef.child(child.val().image).getDownloadURL());
         temp.push(child.val());
       });
-      
+
       // sort by time
       childPromises = childPromises.reverse();
       temp = temp.reverse();
@@ -43,11 +43,13 @@ class Home extends Component {
     return (
       <>
         <Nav />
+        <div>
         {
           (this.state.posts.length>0)
-          ? <Cards posts={this.state.posts}></Cards>
-          : <CardLoader></CardLoader>
-        }  
+          ? <Cards posts={this.state.posts} />
+          : <CardLoader />
+        }
+        </div>
       </>
     );
   }
