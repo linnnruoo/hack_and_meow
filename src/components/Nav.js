@@ -18,7 +18,7 @@ class Nav extends Component {
     return (
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <Button href="/Upload" className={classes.button} fullWidth>
+          <Button href="/upload" className={classes.button} fullWidth>
             <SvgIcon style={{fontSize: '36px'}}>
               <path fill="#000000" d={svgPath} />
             </SvgIcon>
