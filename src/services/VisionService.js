@@ -1,43 +1,41 @@
 import axios from 'axios';
-//import * as _ from 'lodash';
 
 const subscriptionKey = process.env.REACT_APP_CV_API_KEY;
 
 const baseURI = process.env.REACT_APP_CV_API_ENDPOINT;
 
 var headers = {
-    'Content-Type': 'application/octet-stream',
-    'Ocp-Apim-Subscription-Key': subscriptionKey 
+  'Content-Type': 'application/octet-stream',
+  'Ocp-Apim-Subscription-Key': subscriptionKey 
 }
 
 const retrieveTags = async(file) => {
-    let endPoint = 'tag';
-    const apiUrl = `${baseURI}${endPoint}`;
-    //console.log(apiUrl);
-    const formData = new FormData();
-    formData.append('data', file[0]);
+  let endPoint = 'tag';
+  const apiUrl = `${baseURI}${endPoint}`;
+  //console.log(apiUrl);
+  const formData = new FormData();
+  formData.append('data', file[0]);
 
-    try {
-        const promise = await axios.post(apiUrl, formData, {headers : headers});
-        return promise.data.tags;
-    }
-    catch (error) {
-        return Promise.reject(new Error(error));
-    }
+  try {
+    const promise = await axios.post(apiUrl, formData, {headers : headers});
+    return promise.data.tags;
+  }
+  catch (error) {
+    return Promise.reject(new Error(error));
+  }
 };
 
 const checkCat = async(file) => {
-    const tags = await retrieveTags(file);
-    var isCat = false;
+  const tags = await retrieveTags(file);
+  let isCat = false;
 
-    for (var i=0; i<tags.length; i++) {
-
-        if (tags[i]['name'] === "cat") {
-            isCat = true;
-        }
+  for (let i=0; i<tags.length; i++) {
+    if (tags[i]['name'] === "cat") {
+      isCat = true;
     }
+  }
 
-    return isCat;
+  return isCat;
 };
 
 export { retrieveTags, checkCat };

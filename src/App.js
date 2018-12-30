@@ -11,16 +11,8 @@ const theme = createMuiTheme({
     fontFamily: '"Mali"'
   },
   palette: {
-    primary: {
-      light: '#66101F',
-      main: '#66101F',
-      dark: '#66101F',
-    },
-    secondary: {
-      light: '#66101F',
-      main: '#66101F',
-      dark: '#66101F',
-    },
+    primary: { main: '#66101F'},
+    secondary: { main: '#66101F'},
   },
 })
 
@@ -30,10 +22,8 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Router>
           <div className="App">
-            <div className="children">
-              <Route exact path="/" component={ Home } />
-              <Route exact path="/upload" component={ Upload } />
-            </div>
+            <Route exact path="/" component={ Home } />
+            <Route exact path="/upload" component={ Upload } />
           </div>
         </Router>
       </MuiThemeProvider>

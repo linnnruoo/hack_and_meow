@@ -7,18 +7,17 @@ import imageLoader from '../image/placeholder4.png';
 
 const style = theme => ({
   cardGroup: {
-    margin: '0px auto',
     marginTop: '65px',
-    marginBottom: '10px'
+    marginBottom: '10px',
   },
   card: {
-    maxWidth: 310,
-    minWidth: 310,
+    height: 'auto',
+    width: '100%',
+    maxWidth: '15.6em',
     margin: '5px 0px'
   },
   media: {
-    height: '250px',
-    width: '100%',
+    height: 250,
     objectFit: 'cover',
   },
   typography: {
@@ -30,49 +29,39 @@ const style = theme => ({
 });
 
 class Cards extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      imgReady: false
-    }
-  }
   render() {
-    const { classes } = this.props;
+    const { classes, posts } = this.props;
 
     return (
-      <div>
-        <Grid
-          className={classes.cardGroup}
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-          spacing={8}
-          container
-        >
-          {(this.props.posts).map((card, index) => {
-            return (
-              <Grid key={index} item>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image={card.image || imageLoader}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" className={classes.typography}>
-                      {card.caption || <Skeleton count={4} />}
-                    </Typography>
-                  </CardContent>
-                  <Divider className={classes.divider} light />
-                  <CardContent>
-                    <Typography variant="h6" className={classes.typography} style={{fontSize: '15px'}}>Posted by {card.name || <Skeleton width={200} />}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            )
-          })}
-        </Grid>
-      </div>
+      <Grid
+        className={classes.cardGroup}
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-start"
+        container
+      >
+        {(posts).map((card, index) => {
+          return (
+            <Grid key={index} xs={12} sm={4} md={3} lg={2} item container justify="center">
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.media}
+                  image={card.image || imageLoader}
+                />
+                <CardContent>
+                  <Typography variant="h6" className={classes.typography}>
+                    {card.caption || <Skeleton count={4} />}
+                  </Typography>
+                </CardContent>
+                <Divider className={classes.divider} light />
+                <CardContent>
+                  <Typography variant="h6" className={classes.typography} style={{fontSize: '15px'}}>Posted by {card.name || <Skeleton width={200} />}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          )
+        })}
+      </Grid>
     );
   }
 }

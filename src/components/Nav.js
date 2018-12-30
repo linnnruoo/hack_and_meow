@@ -3,8 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Button, SvgIcon, Toolbar, Typography } from '@material-ui/core';
 
 const style = () => ({
-  button: {
-  },
   appBar: {
     background: 'white',
   },
@@ -18,7 +16,7 @@ class Nav extends Component {
     return (
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <Button href="/Upload" className={classes.button} fullWidth>
+          <Button href="/upload" className={classes.button} fullWidth>
             <SvgIcon style={{fontSize: '36px'}}>
               <path fill="#000000" d={svgPath} />
             </SvgIcon>
