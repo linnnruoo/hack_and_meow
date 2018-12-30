@@ -43,13 +43,11 @@ class Home extends Component {
     return (
       <>
         <Nav />
-        <div>
         {
           (this.state.posts.length>0)
           ? <Cards posts={this.state.posts} />
           : <CardLoader />
         }
-        </div>
       </>
     );
   }
