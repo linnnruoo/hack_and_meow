@@ -11,12 +11,12 @@ const style = theme => ({
     marginBottom: '10px'
   },
   card: {
-    maxWidth: 310,
-    margin: '5px 0px'
+    height: 'auto',
+    width: '100%',
+    maxWidth: '15.6em',
   },
   media: {
-    height: '250px',
-    width: '100%',
+    height: 250,
     objectFit: 'cover',
   },
   typography: {
@@ -33,38 +33,36 @@ class CardLoader extends Component {
     const { classes } = this.props;
 
     return (
-      <div>
-        <Grid
-          className={classes.cardGroup}
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-          spacing={8}
-          container
-        >
-          {[1,2,3,4,5].map((card, index) => {
-            return (
-              <Grid key={index} item>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image={imageLoader}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" className={classes.typography}>
-                      {<Skeleton count={4} />}
-                    </Typography>
-                  </CardContent>
-                  <Divider className={classes.divider} light />
-                  <CardContent>
-                    <Typography variant="h6" className={classes.typography} style={{fontSize: '15px'}}>Posted by {<Skeleton width={200} />}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            )
-          })}
-        </Grid>
-      </div>
+      <Grid
+        className={classes.cardGroup}
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-start"
+        spacing={8}
+        container
+      >
+        {[1,2,3,4,5,6].map((card, index) => {
+          return (
+            <Grid key={index} xs={12} sm={4} md={3} lg={2} item container justify="center">
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.media}
+                  image={imageLoader}
+                />
+                <CardContent>
+                  <Typography variant="h6" className={classes.typography}>
+                    {<Skeleton count={4} />}
+                  </Typography>
+                </CardContent>
+                <Divider className={classes.divider} light />
+                <CardContent>
+                  <Typography variant="h6" className={classes.typography} style={{fontSize: '15px'}}>Posted by {<Skeleton width={200} />}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          )
+        })}
+      </Grid>
     );
   }
 }

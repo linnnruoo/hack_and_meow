@@ -13,11 +13,11 @@ class Home extends Component {
     }
   }
 
-  async componentDidMount() {
-    var temp = [];
+  componentDidMount = async() => {
+    let temp = [];
     const storeRef = fire.storage().ref().child('images/');
     const dbRef = fire.database().ref('/posts');
-    var childPromises = [];
+    let childPromises = [];
     dbRef.once('value').then((snapshot) => {
       snapshot.forEach((child) => {
         childPromises.push(storeRef.child(child.val().image).getDownloadURL());
@@ -29,11 +29,9 @@ class Home extends Component {
       temp = temp.reverse();
 
       Promise.all(childPromises).then((response) => {
-        //console.log(response);
-        for (var i = 0; i< response.length; i++){
+        for (let i = 0; i< response.length; i++){
           temp[i].image = response[i];
         }
-        //console.log(temp);
         this.setState(() => ({
           posts: temp,
         }));
@@ -42,16 +40,15 @@ class Home extends Component {
   }
 
   render() {
-
     return (
-      <div>
+      <>
         <Nav />
         {
           (this.state.posts.length>0)
           ? <Cards posts={this.state.posts}></Cards>
           : <CardLoader></CardLoader>
         }  
-      </div>
+      </>
     );
   }
 }

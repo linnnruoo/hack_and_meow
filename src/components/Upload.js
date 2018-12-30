@@ -11,20 +11,19 @@ import {retrieveTags , checkCat} from '../services/VisionService';
 import fire from '../fire';
 import uuid from 'uuid/v1';
 
-function Transition(props) {
+const Transition = (props) => {
   return <Slide direction="up" {...props} />;
 }
 
-function nyan(str) {
-  var arr = str.split('');
-  for (var i = 0; i < arr.length; i++) {
+const nyan = (str) => {
+  let arr = str.split('');
+  for (let i = 0; i < arr.length; i++) {
     if (arr[i] === 'l' || arr[i] === 'r') {
-      console.log("hello");
       arr[i] = 'w';
     }
   }
 
-  for (var j = 0; j < arr.length - 1; j++) {
+  for (let j = 0; j < arr.length - 1; j++) {
     if (arr[j] === 'n' && arr[j+1] === 'a') {
       arr = arr.slice(0, j+1)
                 .concat(['y'])
@@ -72,7 +71,7 @@ class Upload extends Component {
   }
 
   onClick = (e) => {
-    var owos = ["owo", "uwu", "OwO", "UwU", "^w^"]
+    const owos = ["owo", "uwu", "OwO", "UwU", "^w^"]
     if (this.state.name === '' || this.state.caption === '' || this.state.imgFile === '') {
       this.setState({alertlevel : 1, pass : false});
     }
@@ -80,14 +79,12 @@ class Upload extends Component {
       if (!this.state.isCat) {
         this.setState({alertlevel: 2, pass : false});
       } else {
-        var str = uuid();
+        const str = uuid();
 
-        var newCaption = nyan(this.state.caption);
-        var newName = nyan(this.state.name);
-        var appendedCaption = (Math.random() > 0.4) ? 
-        (" " + owos[Math.round( Math.random() * (owos.length - 1))]) : "";
-        console.log(newName);
-        console.log(newCaption);
+        const newCaption = nyan(this.state.caption);
+        const newName = nyan(this.state.name);
+        const appendedCaption = (Math.random() > 0.4) ? 
+        (" " + owos[Math.round(Math.random() * (owos.length - 1))]) : "";
 
         fire.storage().ref().child('images/' + str).put(this.state.imgFile).then((snapshot) =>{
           console.log('Fiwe upwoaded');
@@ -107,7 +104,7 @@ class Upload extends Component {
 
   }
 
-  handleClose(e) {
+  handleClose = (e) => {
     this.setState({alertlevel : 0});
   }
 
@@ -121,7 +118,7 @@ class Upload extends Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <>
         <Grid className={classes.root} container>
           <Grid className={classes.grid} xs={12} item>
             <input
@@ -199,21 +196,20 @@ class Upload extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </>
     );
   }
 
-  onFileChange(e) {
+  onFileChange = (e) => {
     let files = e.target.files || e.dataTransfer.files;
     if (!files.length) {
-        console.log('no files');
+      console.log('no files');
     }
     retrieveTags(files).then((tags) => {
       console.dir(tags);
       _(tags).forEach( (tag) => console.log(tag.name) );
     });
     checkCat(files).then((res) => {
-      //console.log(res);
       this.setState(() => ({
         imgFile : files[0],
         isCat : res,
