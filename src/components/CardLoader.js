@@ -51,7 +51,7 @@ class CardLoader extends Component {
                 />
                 <CardContent>
                   <Typography variant="h6" className={classes.typography}>
-                    {<Skeleton count={4} />}
+                    {<Skeleton count={1} />}
                   </Typography>
                 </CardContent>
                 <Divider className={classes.divider} light />
