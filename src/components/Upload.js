@@ -35,9 +35,6 @@ const nyan = (str) => {
 }
 
 const style = () => ({
-  root: {
-    margin: '20px 1px',
-  },
   grid: {
     marginBottom: '10px',
   },
@@ -119,7 +116,7 @@ class Upload extends Component {
 
     return (
       <>
-        <Grid className={classes.root} container>
+        <Grid container>
           <Grid className={classes.grid} xs={12} item>
             <input
               id="my-file-selector"
