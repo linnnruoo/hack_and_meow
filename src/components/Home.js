@@ -1,25 +1,28 @@
-import React, { Component } from 'react';
-import Nav from './Nav';
-import fire from '../fire';
-import Cards from './Cards';
-import CardLoader from './CardLoader';
+import React, { Component } from "react";
+import Nav from "./Nav";
+import fire from "../fire";
+import Cards from "./Cards";
+import CardLoader from "./CardLoader";
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posts : []
-    }
+      posts: []
+    };
   }
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     let temp = [];
-    const storeRef = fire.storage().ref().child('images/');
-    const dbRef = fire.database().ref('/posts');
+    const storeRef = fire
+      .storage()
+      .ref()
+      .child("images/");
+    const dbRef = fire.database().ref("/posts");
     let childPromises = [];
-    dbRef.once('value').then((snapshot) => {
-      snapshot.forEach((child) => {
+    dbRef.once("value").then(snapshot => {
+      snapshot.forEach(child => {
         childPromises.push(storeRef.child(child.val().image).getDownloadURL());
         temp.push(child.val());
       });
@@ -28,26 +31,26 @@ class Home extends Component {
       childPromises = childPromises.reverse();
       temp = temp.reverse();
 
-      Promise.all(childPromises).then((response) => {
-        for (let i = 0; i< response.length; i++){
+      Promise.all(childPromises).then(response => {
+        for (let i = 0; i < response.length; i++) {
           temp[i].image = response[i];
         }
         this.setState(() => ({
-          posts: temp,
+          posts: temp
         }));
       });
     });
-  }
+  };
 
   render() {
     return (
       <>
         <Nav />
-        {
-          (this.state.posts.length>0)
-          ? <Cards posts={this.state.posts} />
-          : <CardLoader />
-        }
+        {this.state.posts.length > 0 ? (
+          <Cards posts={this.state.posts} />
+        ) : (
+          <CardLoader />
+        )}
       </>
     );
   }
